@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="acceptable_place">#8077C34E</color>
+    <color name="moderately_dangerous_place">#79C3BD4E</color>
+    <color name="dangerous_place">#78C3944E</color>
+    <color name="very_dangerous_place">#64C34E4E</color>
+</resources>

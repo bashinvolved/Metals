@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">Название</string>
+    <string name="app_name">Metals</string>
+    <string name="permission_needed">Необходимо разрешение на получение геолокации</string>
+    <string name="try_enable">Ошибка. Попробуйте включить геолокацию</string>
+    <string name="data">Сведения</string>
+    <string name="zc">Показатель загрязнения Zc</string>
+    <string name="level">Категория загрязнения</string>
+    <string name="coefficient">Коэффициент превышения ПДК</string>
+    <string name="containment">Содержание мг/кг</string>
+    <string name="level_1">Допустимая</string>
+    <string name="level_2">Умеренно опасная</string>
+    <string name="level_3">Опасная</string>
+    <string name="level_4">Чрезвычайно опасная</string>
+    <string name="addition">Дополнительно</string>
+    <string name="metals">Металлы</string>
+    <string name="account">Аккаунт</string>
+    <string name="sign_in">Вход</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="email">Адрес электронной почты</string>
+    <string name="password">Пароль</string>
+    <string name="email_badly_formatted">Это не адрес почты</string>
+    <string name="email_is_not_registered">Нет пользователя, зарегистрированного под такими данными</string>
+    <string name="wrong_password">Неправильный пароль или у этого пользователя его нет</string>
+    <string name="invalid_password">Пароль должен состоять хотя бы из 6 символов</string>
+    <string name="malformed_credentials">Эти учетные данные неправильные или устарели</string>
+    <string name="empty_password">Поле пароля пусто</string>
+    <string name="empty_email">Поле электронной почты пусто</string>
+    <string name="uncathed_exception">Неизвестная ошибка</string>
+    <string name="abilities">Возможности</string>
+    <string name="viewing">Просмотр</string>
+    <string name="editing">Редактирование</string>
+    <string name="sign_out">Выйти</string>
+    <string name="loading">Загрузка</string>
+    <string name="settings">Параметры</string>
+    <string name="language">Язык</string>
+    <string name="theme">Тема</string>
+    <string name="about">О приложении</string>
+    <string name="information">
+        Интерактивная карта загрязнения почвы тяжелыми металлами\n\nМанипуляции с картой
+        производятся на главной странице при помощи боковой панели:\nИконка карандаша -
+        включает режим редактирования, по нажатии на карту в свободном месте в первый\n\nЧтобы
+        получить права на редактирование карты, вам необходимо
+        зарегистрироваться при помощи третьего меню и дождаться верификации
+        от модерации\n\nБолее
+        подробное описание функций можно найти на нашей странице гитхаб\n\ngithub.com/austiniar/Metals
+    </string>
+    <string name="degree_of_pollution">Степень загрязнения</string>
+    <string name="low_pollution_degree">Слабая</string>
+    <string name="average_pollution_degree">Средняя</string>
+    <string name="high_pollution_degree">Сильная</string>
+    <string name="very_high_pollution_degree">Очень сильная</string>
+    <string name="create_infoblock">Добавить блок</string>
+    <string name="write_addition">Добавть запись</string>
+    <string name="wait_for_moderation">Дождитесь подтверждения вашей учетной записи</string>
+    <string name="have_to_sign_in">Войдите в аккаунт, чтобы пользоваться этой функцией</string>
+    <string name="ok">Хорошо</string>
+</resources>

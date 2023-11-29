@@ -1,0 +1,57 @@
+<resources>
+    <string name="name">Name</string>
+    <string name="app_name">Metals</string>
+    <string name="permission_needed">You must provide the permission to access your location</string>
+    <string name="try_enable">Error occurred. Try to enable your location services</string>
+    <string name="wait_for_moderation">Your account has not got verification yet</string>
+    <string name="have_to_sign_in">You should login to your account</string>
+    <string name="data">Information</string>
+    <string name="zc">Zc pollution indicator</string>
+    <string name="level">Pollution category</string>
+    <string name="coefficient">Excess concentration factor</string>
+    <string name="containment">Content mg/kg</string>
+    <string name="level_2">Semi-dangerous</string>
+    <string name="level_3">Dangerous</string>
+    <string name="level_4">Very dangerous</string>
+    <string name="addition">Addition</string>
+    <string name="account">Account</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="email_badly_formatted">The email address is badly formatted.</string>
+    <string name="email_is_not_registered">There is no user record corresponding to this identifier. The user may have been deleted.</string>
+    <string name="wrong_password">The password is invalid or the user does not have a password.</string>
+    <string name="invalid_password">The given password is invalid. [ Password should be at least 6 characters ]</string>
+    <string name="malformed_credentials">The supplied auth credential is incorrect, malformed or has expired.</string>
+    <string name="empty_password">The given password is empty.</string>
+    <string name="empty_email">The email address is empty</string>
+    <string name="uncathed_exception">Unknown error</string>
+    <string name="viewing">Viewing</string>
+    <string name="editing">Editing</string>
+    <string name="sign_out">Sign out</string>
+    <string name="loading">Loading</string>
+    <string name="settings">Options</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+    <string name="about">About app</string>
+    <string name="information">
+        The interactive map of soil contamination with heavy metals\n\nThe app
+        consists of three menu. Main manipulations with the map are performed
+        using the main page sidebar\n\nYou have to sign up in the third menu
+        and wait for verification to get permission to edit the map\n\nMore information
+        about the functionality you can find on our github\ngithub.com/austiniar/Metals
+    </string>
+    <string name="level_1">Normal</string>
+    <string name="metals">Metals</string>
+    <string name="abilities">Possibilities</string>
+    <string name="degree_of_pollution">Degree of pollution</string>
+    <string name="low_pollution_degree">Low</string>
+    <string name="average_pollution_degree">Average</string>
+    <string name="high_pollution_degree">High</string>
+    <string name="very_high_pollution_degree">Very high</string>
+    <string name="create_infoblock">Create block</string>
+    <string name="write_addition">Write addition</string>
+    <string name="ok">OK</string>
+</resources>

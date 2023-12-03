@@ -39,12 +39,12 @@
     <string name="about">О приложении</string>
     <string name="information">
         Интерактивная карта загрязнения почвы тяжелыми металлами\n\nМанипуляции с картой
-        производятся на главной странице при помощи боковой панели:\nИконка карандаша -
-        включает режим редактирования, по нажатии на карту в свободном месте в первый\n\nЧтобы
+        производятся на главной странице при помощи боковой панели\n\nЧтобы
         получить права на редактирование карты, вам необходимо
         зарегистрироваться при помощи третьего меню и дождаться верификации
         от модерации\n\nБолее
-        подробное описание функций можно найти на нашей странице гитхаб\n\ngithub.com/austiniar/Metals
+        подробное описание функций можно найти на нашей странице гитхаб\ngithub.com/austiniar/Metals\n\nИспользуя
+        приложение вы соглашаетесь с условиями использования Яндекс.Карт:\nyandex.ru/legal/maps_termsofuse
     </string>
     <string name="degree_of_pollution">Степень загрязнения</string>
     <string name="low_pollution_degree">Слабая</string>
@@ -56,4 +56,8 @@
     <string name="wait_for_moderation">Дождитесь подтверждения вашей учетной записи</string>
     <string name="have_to_sign_in">Войдите в аккаунт, чтобы пользоваться этой функцией</string>
     <string name="ok">Хорошо</string>
+    <string name="type_to_search">Начните ввод для поиска</string>
+    <string name="filter">Фильтры</string>
+    <string name="range">Диапазон</string>
+    <string name="not_applicable">Не применяется</string>
 </resources>

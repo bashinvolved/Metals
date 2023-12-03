@@ -1,5 +1,7 @@
 package com.danil.metals.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.ui.text.intl.Locale
 import androidx.core.os.LocaleListCompat
@@ -15,6 +17,15 @@ import com.danil.metals.data.ExploredLocation
 import com.danil.metals.data.MetalsRepository
 import com.google.firebase.firestore.ListenerRegistration
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.VisibleRegion
+import com.yandex.mapkit.map.VisibleRegionUtils
+import com.yandex.mapkit.search.Response
+import com.yandex.mapkit.search.SearchFactory
+import com.yandex.mapkit.search.SearchManagerType
+import com.yandex.mapkit.search.SearchOptions
+import com.yandex.mapkit.search.Session
+import com.yandex.mapkit.search.Session.SearchListener
+import com.yandex.runtime.Error
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -87,7 +98,8 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
         AccountScreen,
         SettingsScreen,
         ResearchScreen,
-        EditScreen
+        EditScreen,
+        FilterScreen
     }
 
     fun setLocation(latitude: Double, longitude: Double, zoom: Float, azimuth: Float, tilt: Float) {
@@ -125,6 +137,10 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
                 showingPoint = point
             )
         }
+    }
+
+    fun setSearchedPoint(point: Point?) {
+        uiState.update { it.copy(searchedPoint = point) }
     }
 
     fun setMode(mode: Boolean) {
@@ -187,8 +203,19 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
         }
     }
 
+    fun setFilter(property: Int, type: Boolean, value: String) {
+        when (property) {
+            1 -> if (type) uiState.update { it.copy(zcRangeStart = value) } else
+                uiState.update { it.copy(zcRangeEnd = value) }
+            2 -> if (type) uiState.update { it.copy(containmentRangeStart = value) } else
+                uiState.update { it.copy(containmentRangeEnd = value) }
+            else -> if (type) uiState.update { it.copy(coefficientRangeStart = value) } else
+                uiState.update { it.copy(coefficientRangeEnd = value) }
+        }
+    }
+
     fun setCurrentScreen(screen: Screens) {
-        uiState.update { it.copy(currentScreen = screen) }
+        uiState.update { it.copy(currentScreen = screen, previousScreen = uiState.value.currentScreen) }
     }
 
     fun setLastExploredPoint(exploredLocation: ExploredLocation, point: Point) {
@@ -329,6 +356,40 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
         uiState.update {
             it.copy(warning = warning, warningAction = warningAction)
         }
+    }
+
+    private val searchSessionListener = object : SearchListener {
+        override fun onSearchResponse(response: Response) {
+            val searchResult: MutableList<Pair<String, Point?>> = mutableListOf()
+            for (elem in response.collection.children.iterator()) {
+                searchResult.add(Pair((elem.obj?.name ?: "") + '%' + (elem.obj?.descriptionText ?: ""), elem.obj?.geometry?.get(0)?.point))
+            }
+            uiState.update { it.copy(searchResult = searchResult.filter
+                { entry -> entry.second != null } as List<Pair<String, Point>>)
+            }
+        }
+
+        override fun onSearchError(error: Error) {
+        }
+    }
+    private val searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
+    private var searchSession: Session? = null
+    @RequiresApi(Build.VERSION_CODES.P)
+    fun trySearch(text: String, region: VisibleRegion) {
+        if (text.isEmpty()) {
+            uiState.update { it.copy(searchResult = listOf()) }
+            return
+        }
+        val polygon = VisibleRegionUtils.toPolygon(region)
+        searchSession?.cancel()
+        searchSession = searchManager.submit(
+            text,
+            polygon,
+            SearchOptions().apply {
+                resultPageSize = 8
+            },
+            searchSessionListener
+        )
     }
 
     fun trySignIn(email: String, password: String) {

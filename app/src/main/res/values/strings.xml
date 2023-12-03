@@ -41,7 +41,8 @@
         consists of three menu. Main manipulations with the map are performed
         using the main page sidebar\n\nYou have to sign up in the third menu
         and wait for verification to get permission to edit the map\n\nMore information
-        about the functionality you can find on our github\ngithub.com/austiniar/Metals
+        about the functionality you can find on our github\ngithub.com/austiniar/Metals\n\nWhile using
+        this app you agree to Yandex.Maps terms of use\nyandex.ru/legal/maps_termsofuse
     </string>
     <string name="level_1">Normal</string>
     <string name="metals">Metals</string>
@@ -54,4 +55,8 @@
     <string name="create_infoblock">Create block</string>
     <string name="write_addition">Write addition</string>
     <string name="ok">OK</string>
+    <string name="type_to_search">Type to search</string>
+    <string name="filter">Filters</string>
+    <string name="range">Range</string>
+    <string name="not_applicable">Not applicable</string>
 </resources>

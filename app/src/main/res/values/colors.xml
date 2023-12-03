@@ -10,5 +10,5 @@
     <color name="acceptable_place">#8077C34E</color>
     <color name="moderately_dangerous_place">#79C3BD4E</color>
     <color name="dangerous_place">#78C3944E</color>
-    <color name="very_dangerous_place">#64C34E4E</color>
+    <color name="very_dangerous_place">#4DC34E4E</color>
 </resources>

@@ -36,5 +36,12 @@ val Typography = Typography(
         lineHeight = 20.sp,
         letterSpacing = 0.5.sp,
         textAlign = TextAlign.Justify
-    )
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.5.sp
+    ),
 )

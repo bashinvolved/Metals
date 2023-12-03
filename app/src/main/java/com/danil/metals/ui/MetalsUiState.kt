@@ -10,12 +10,13 @@ data class MetalsUiState(
     val location: List<Double> = listOf(55.754581, 37.625348),
     val realLocation: List<Double>? = null,
     val azimuth: Float = 0.0f,
-    val zoom: Float = 12.0f,
+    val zoom: Float = 5.0f,
     val tilt: Float = 0.0f,
     val languages: List<String> = listOf("en", "ru"),
     val loading: Boolean = false,
     val listenersImplemented: Boolean = false,
     val currentScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.MapScreen,
+    val previousScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.MapScreen,
 
     // research
     val exploredLocations: List<ExploredLocation> = listOf(),
@@ -34,6 +35,16 @@ data class MetalsUiState(
     // mapScreen
     val editMode: Boolean = false,
     val locationAdded: Boolean = false,
+    val searchResult: List<Pair<String, Point>> = listOf(),
+    val searchedPoint: Point? = null,
+
+    //filters
+    val zcRangeStart: String = "",
+    val zcRangeEnd: String = "",
+    val containmentRangeStart: String = "",
+    val containmentRangeEnd: String = "",
+    val coefficientRangeStart: String = "",
+    val coefficientRangeEnd: String = "",
 )
 
 val representation = mapOf(

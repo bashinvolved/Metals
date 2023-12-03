@@ -1,5 +1,7 @@
 package com.danil.metals.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -39,10 +41,12 @@ import androidx.navigation.compose.rememberNavController
 import com.danil.metals.R
 import com.danil.metals.ui.screens.AccountScreen
 import com.danil.metals.ui.screens.EditScreen
+import com.danil.metals.ui.screens.FilterScreen
 import com.danil.metals.ui.screens.MapScreen
 import com.danil.metals.ui.screens.ResearchScreen
 import com.danil.metals.ui.screens.SettingsScreen
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun MetalsApp(
     viewModel: MetalsViewModel,
@@ -106,6 +110,15 @@ fun MetalsApp(
                             navController = navController
                         )
                         viewModel.setCurrentScreen(MetalsViewModel.Screens.EditScreen)
+                    }
+
+                    composable(route = MetalsViewModel.Screens.FilterScreen.name) {
+                        FilterScreen(
+                            uiState = uiState,
+                            viewModel = viewModel,
+                            navController = navController
+                        )
+                        viewModel.setCurrentScreen(MetalsViewModel.Screens.FilterScreen)
                     }
                 }
 

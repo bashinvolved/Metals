@@ -218,10 +218,17 @@ fun MapScreen(
                                     )
                                 userData = location
                                 addTapListener { mapObject, point ->
-                                    viewModel.setShowings(
-                                        mapObject.userData as ExploredLocation,
-                                        point
-                                    )
+                                    if (viewModel.uiState.value.showingLocation == (mapObject.userData as ExploredLocation)) {
+                                        viewModel.setLastExploredPoint(
+                                            viewModel.uiState.value.showingLocation,
+                                            point
+                                        )
+                                    } else {
+                                        viewModel.setShowings(
+                                            mapObject.userData as ExploredLocation,
+                                            point
+                                        )
+                                    }
                                     if (!viewModel.uiState.value.editMode) {
                                         navController.navigate(MetalsViewModel.Screens.ResearchScreen.name)
                                     }

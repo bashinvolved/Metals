@@ -84,6 +84,8 @@ lateinit var cameraListener: CameraListener
 lateinit var inputListener: InputListener
 private lateinit var collection: MapObjectCollection
 lateinit var lastKnownPolyPoints: List<Double>
+var lastKnownRealLocation: List<Double> = listOf()
+var lastKnownSearchedPoint: Point = Point()
 lateinit var mapView: MapView
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -249,13 +251,13 @@ fun MapScreen(
 
 
 
-                if (uiState.realLocation != null) {
+                if (uiState.realLocation != null && uiState.realLocation != lastKnownRealLocation) {
+                    lastKnownRealLocation = uiState.realLocation
                     val imageProvider = ImageProvider.fromResource(activity, R.drawable.me)
                     collection.addPlacemark().apply {
                         geometry = Point(uiState.realLocation[0], uiState.realLocation[1])
                         setIcon(imageProvider)
                     }
-                    lastKnownPolyPoints = listOf()
                 }
 
                 if (uiState.editMode) {
@@ -269,13 +271,14 @@ fun MapScreen(
                     lastKnownPolyPoints = listOf()
                 }
 
-                if (searchMode && uiState.searchedPoint != null) {
+                if (searchMode && uiState.searchedPoint != null &&
+                    lastKnownSearchedPoint != uiState.searchedPoint) {
+                    lastKnownSearchedPoint = uiState.searchedPoint
                     val imageProvider = ImageProvider.fromResource(activity, R.drawable.mmark)
                     collection.addPlacemark().apply {
                         geometry = uiState.searchedPoint
                         setIcon(imageProvider)
                     }
-                    lastKnownPolyPoints = listOf()
                 }
 
             }
@@ -361,6 +364,7 @@ fun MapScreen(
                             viewModel.setRealLocation()
                             locationButtonRole = true
                             lastKnownPolyPoints = listOf()
+                            lastKnownRealLocation = listOf()
                         }
                     } catch (e: Exception) {
                         viewModel.showWarning(Pair(R.string.uncathed_exception, R.string.ok)) {
@@ -410,6 +414,7 @@ fun MapScreen(
                     IconButton(onClick = {
                         searchMode = !searchMode
                         lastKnownPolyPoints = listOf()
+                        lastKnownSearchedPoint = Point()
                         viewModel.setSearchedPoint(null)
                     }) {
                         Icon(

@@ -1,6 +1,7 @@
 package com.danil.metals.ui.screens
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ import com.yandex.mapkit.geometry.Polygon
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.mapview.MapView
+import kotlin.math.roundToInt
 
 private lateinit var collection: MapObjectCollection
 
@@ -50,7 +52,8 @@ private lateinit var collection: MapObjectCollection
 fun ResearchScreen(
     viewModel: MetalsViewModel,
     uiState: MetalsUiState,
-    navController: NavHostController
+    navController: NavHostController,
+    activity: AppCompatActivity
 ) {
     Column(
         modifier = Modifier
@@ -106,7 +109,8 @@ fun ResearchScreen(
 
                 collection.addPolygon(Polygon(LinearRing(uiState.showingLocation.points), listOf()))
                     .apply {
-                        strokeWidth = 0f
+                        strokeWidth = 1f
+                        strokeColor = ContextCompat.getColor(activity, R.color.black)
                         fillColor = ContextCompat.getColor(
                             viewModel.metalsRepository.context(),
                             viewModel.selectColor(uiState.showingLocation)
@@ -147,7 +151,7 @@ fun ResearchScreen(
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding) / 2))
 
             Text(
-                viewModel.calculateZc(uiState.showingLocation).toInt().toString(),
+                ((viewModel.calculateZc(uiState.showingLocation) * 100).roundToInt() / 100.0).toString(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSecondary
             )
@@ -267,7 +271,7 @@ fun ResearchScreen(
                     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding) / 2))
 
                     Text(
-                        (elem.value[0] / elem.value[1]).toString(),
+                        (((elem.value[0] / elem.value[1]) * 100).roundToInt() / 100.0).toString(),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSecondary
                     )

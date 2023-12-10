@@ -99,7 +99,7 @@ fun MetalsApp(
                     }
 
                     composable(route = MetalsViewModel.Screens.ResearchScreen.name) {
-                        ResearchScreen(viewModel, uiState, navController)
+                        ResearchScreen(viewModel, uiState, navController, activity)
                         viewModel.setCurrentScreen(MetalsViewModel.Screens.ResearchScreen)
                     }
 

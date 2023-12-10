@@ -512,7 +512,7 @@ fun MapScreen(
                                 modifier = Modifier.width(dimensionResource(id = R.dimen.search_area) * 1.55f)
                             ) {
                                 Column(
-                                    modifier = Modifier.width(dimensionResource(id = R.dimen.search_area) * 1.5f)
+                                    modifier = Modifier.width(dimensionResource(id = R.dimen.search_area) * 1.45f)
                                 ) {
                                     Text(
                                         elem.first.split('%').first(),

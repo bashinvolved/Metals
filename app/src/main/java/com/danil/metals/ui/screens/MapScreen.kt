@@ -218,7 +218,8 @@ fun MapScreen(
                                     )
                                 userData = location
                                 addTapListener { mapObject, point ->
-                                    if (viewModel.uiState.value.showingLocation == (mapObject.userData as ExploredLocation)) {
+                                    if (viewModel.uiState.value.editMode &&
+                                        viewModel.uiState.value.showingLocation == (mapObject.userData as ExploredLocation)) {
                                         viewModel.setLastExploredPoint(
                                             viewModel.uiState.value.showingLocation,
                                             point

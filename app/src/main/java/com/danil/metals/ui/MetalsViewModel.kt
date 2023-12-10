@@ -325,7 +325,7 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
     }
 
     fun calculateZc(location: ExploredLocation): Double {
-        return location.elements.values.sumOf { it[0] } - location.elements.size
+        return location.elements.values.sumOf { it[0] / it[1] } - location.elements.size + 1
     }
 
     fun selectColor(location: ExploredLocation): Int {

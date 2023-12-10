@@ -267,7 +267,7 @@ fun ResearchScreen(
                     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding) / 2))
 
                     Text(
-                        elem.value[1].toString(),
+                        (elem.value[0] / elem.value[1]).toString(),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSecondary
                     )

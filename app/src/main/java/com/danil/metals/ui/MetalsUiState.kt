@@ -15,8 +15,8 @@ data class MetalsUiState(
     val languages: List<String> = listOf("en", "ru"),
     val loading: Boolean = false,
     val listenersImplemented: Boolean = false,
-    val currentScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.MapScreen,
-    val previousScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.MapScreen,
+    val currentScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.AccountScreen,
+    val previousScreen: MetalsViewModel.Screens = MetalsViewModel.Screens.AccountScreen,
 
     // research
     val exploredLocations: List<ExploredLocation> = listOf(),

@@ -9,6 +9,7 @@
     <string name="zc">Zc pollution indicator</string>
     <string name="level">Pollution category</string>
     <string name="coefficient">Excess concentration factor</string>
+    <string name="mpc">Maximum permissible concentration</string>
     <string name="containment">Content mg/kg</string>
     <string name="level_2">Semi-dangerous</string>
     <string name="level_3">Dangerous</string>
@@ -59,4 +60,5 @@
     <string name="filter">Filters</string>
     <string name="range">Range</string>
     <string name="not_applicable">Not applicable</string>
+    <string name="by">by @austiniar\n2023</string>
 </resources>

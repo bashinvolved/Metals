@@ -266,7 +266,7 @@ fun EditScreen(
                             listOf(elem.value[0], it.toDouble(), elem.value[2])
                         )
                     },
-                    text = R.string.coefficient,
+                    text = R.string.mpc,
                     keyboardType = KeyboardType.Decimal,
                     modifier = Modifier.fillMaxWidth(0.6f)
                 )

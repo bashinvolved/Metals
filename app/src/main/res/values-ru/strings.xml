@@ -7,6 +7,7 @@
     <string name="data">Сведения</string>
     <string name="zc">Показатель загрязнения Zc</string>
     <string name="level">Категория загрязнения</string>
+    <string name="mpc">Предельная допустимая концентрация</string>
     <string name="coefficient">Коэффициент превышения ПДК</string>
     <string name="containment">Содержание мг/кг</string>
     <string name="level_1">Допустимая</string>
@@ -60,4 +61,5 @@
     <string name="filter">Фильтры</string>
     <string name="range">Диапазон</string>
     <string name="not_applicable">Не применяется</string>
+    <string name="by">by @austiniar\n2023</string>
 </resources>

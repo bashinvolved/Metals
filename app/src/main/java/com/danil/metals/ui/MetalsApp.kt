@@ -68,7 +68,7 @@ fun MetalsApp(
             ) {
                 NavHost(
                     navController = navController,
-                    startDestination = MetalsViewModel.Screens.MapScreen.name,
+                    startDestination = MetalsViewModel.Screens.AccountScreen.name,
                     enterTransition = { EnterTransition.None },
                     exitTransition = { ExitTransition.None }
                 ) {

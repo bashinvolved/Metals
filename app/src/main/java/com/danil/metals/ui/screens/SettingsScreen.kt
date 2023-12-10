@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.danil.metals.R
 import com.danil.metals.ui.MetalsUiState
 import com.danil.metals.ui.MetalsViewModel
@@ -150,7 +151,6 @@ fun SettingsScreen(
 
         Spacer(Modifier.height(dimensionResource(id = R.dimen.padding)))
 
-        var colorSwitcher by rememberSaveable { mutableStateOf(true) }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,40 +161,34 @@ fun SettingsScreen(
                 .padding(dimensionResource(id = R.dimen.padding) / 2)
         ) {
             IconButton(
-                onClick = {
-                    viewModel.changeTheme()
-                    colorSwitcher = !colorSwitcher
-                },
+                onClick = { viewModel.changeTheme() },
                 modifier = Modifier
                     .weight(0.5f)
                     .background(
-                        color = if (colorSwitcher) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
+                        color = if (uiState.isDark) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
                         shape = MaterialTheme.shapes.extraSmall
                     )
             ) {
                 Icon(
                     Icons.Rounded.Nightlight,
                     contentDescription = null,
-                    tint = if (colorSwitcher) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onSecondary
+                    tint = if (uiState.isDark) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onSecondary
                 )
             }
 
             IconButton(
-                onClick = {
-                    viewModel.changeTheme()
-                    colorSwitcher = !colorSwitcher
-                },
+                onClick = { viewModel.changeTheme() },
                 modifier = Modifier
                     .weight(0.5f)
                     .background(
-                        color = if (!colorSwitcher) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
+                        color = if (!uiState.isDark) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
                         shape = MaterialTheme.shapes.extraSmall
                     )
             ) {
                 Icon(
                     Icons.Rounded.WbSunny,
                     contentDescription = null,
-                    tint = if (!colorSwitcher) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onSecondary
+                    tint = if (!uiState.isDark) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onSecondary
                 )
             }
         }
@@ -242,6 +236,16 @@ fun SettingsScreen(
                 )
             }
         }
+
+        Spacer(Modifier.height(dimensionResource(R.dimen.padding)))
+
+        Text(
+            stringResource(R.string.by),
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.surface,
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(Modifier.height(dimensionResource(id = R.dimen.padding)))
     }

@@ -247,6 +247,7 @@ fun MapScreen(
                         geometry = Point(uiState.realLocation[0], uiState.realLocation[1])
                         setIcon(imageProvider)
                     }
+                    lastKnownPolyPoints = listOf()
                 }
 
                 if (uiState.editMode) {
@@ -257,6 +258,7 @@ fun MapScreen(
                             setIcon(imageProvider)
                         }
                     }
+                    lastKnownPolyPoints = listOf()
                 }
 
                 if (searchMode && uiState.searchedPoint != null) {
@@ -265,6 +267,7 @@ fun MapScreen(
                         geometry = uiState.searchedPoint
                         setIcon(imageProvider)
                     }
+                    lastKnownPolyPoints = listOf()
                 }
 
             }
@@ -458,7 +461,7 @@ fun MapScreen(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(
-                        start = dimensionResource(id = R.dimen.padding) / 2,
+                        start = dimensionResource(id = R.dimen.padding) / 4,
                         top = dimensionResource(id = R.dimen.padding) / 2,
                         end = dimensionResource(id = R.dimen.padding) * 2
                     )

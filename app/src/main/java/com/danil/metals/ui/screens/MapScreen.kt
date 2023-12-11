@@ -180,6 +180,8 @@ fun MapScreen(
                         if (uiState.currentScreen != uiState.previousScreen)
                             viewModel.setCurrentScreen(uiState.currentScreen)
                         collection.clear()
+                        lastKnownRealLocation = listOf()
+                        lastKnownSearchedPoint = Point()
                         collection = mapView.mapWindow.map.mapObjects.addCollection()
                         lastKnownPolyPoints = uiState.exploredLocations.map { it.points }
                             .reduce { result, it -> result + it }

@@ -158,7 +158,8 @@ fun MetalsApp(
                     )
                     .size(dimensionResource(id = R.dimen.selected_menu_item)),
                 onClick = {
-                    navController.navigate(MetalsViewModel.Screens.SettingsScreen.name)
+                    if (uiState.currentScreen != MetalsViewModel.Screens.SettingsScreen)
+                        navController.navigate(MetalsViewModel.Screens.SettingsScreen.name)
                 }
             ) {
                 Icon(
@@ -178,7 +179,8 @@ fun MetalsApp(
                     )
                     .size(dimensionResource(id = R.dimen.selected_menu_item)),
                 onClick = {
-                    navController.navigate(MetalsViewModel.Screens.MapScreen.name)
+                    if (uiState.currentScreen != MetalsViewModel.Screens.MapScreen)
+                        navController.navigate(MetalsViewModel.Screens.MapScreen.name)
                 }
             ) {
                 Icon(
@@ -197,7 +199,8 @@ fun MetalsApp(
                 )
                 .size(dimensionResource(id = R.dimen.selected_menu_item)),
                 onClick = {
-                    navController.navigate(MetalsViewModel.Screens.AccountScreen.name)
+                    if (uiState.currentScreen != MetalsViewModel.Screens.AccountScreen)
+                        navController.navigate(MetalsViewModel.Screens.AccountScreen.name)
                 }
             ) {
                 Icon(

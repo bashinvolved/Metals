@@ -149,6 +149,10 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
         }
     }
 
+    fun setLocationButtonRole(role: Boolean) {
+        uiState.update { it.copy(locationButtonRole = role) }
+    }
+
     fun setLocationAdded() {
         uiState.update {
             it.copy(locationAdded = true)

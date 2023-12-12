@@ -37,6 +37,7 @@ data class MetalsUiState(
     val locationAdded: Boolean = false,
     val searchResult: List<Pair<String, Point>> = listOf(),
     val searchedPoint: Point? = null,
+    val locationButtonRole: Boolean = true,
 
     //filters
     val zcRangeStart: String = "",

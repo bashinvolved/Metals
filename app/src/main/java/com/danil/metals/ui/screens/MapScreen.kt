@@ -323,11 +323,10 @@ fun MapScreen(
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             }
-            var locationButtonRole by rememberSaveable { mutableStateOf(true) }
             if (!uiState.editMode)
                 IconButton(onClick = {
                     try {
-                        if (locationButtonRole) {
+                        if (uiState.locationButtonRole) {
                             if (ContextCompat.checkSelfPermission(
                                     activity,
                                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -338,7 +337,7 @@ fun MapScreen(
                                     .lastLocation.addOnSuccessListener {
                                         try {
                                             viewModel.setRealLocation(it.latitude, it.longitude)
-                                            locationButtonRole = false
+                                            viewModel.setLocationButtonRole(false)
                                         } catch (e: Exception) {
                                             viewModel.showWarning(
                                                 Pair(
@@ -360,11 +359,11 @@ fun MapScreen(
                                     ),
                                     Toast.LENGTH_LONG
                                 ).show()
-                                locationButtonRole = true
+                                viewModel.setLocationButtonRole(true)
                             }
                         } else {
                             viewModel.setRealLocation()
-                            locationButtonRole = true
+                            viewModel.setLocationButtonRole(true)
                             lastKnownPolyPoints = listOf()
                             lastKnownRealLocation = listOf()
                         }
@@ -372,11 +371,11 @@ fun MapScreen(
                         viewModel.showWarning(Pair(R.string.uncathed_exception, R.string.ok)) {
                             viewModel.showWarning(null)
                         }
-                        locationButtonRole = true
+                        viewModel.setLocationButtonRole(true)
                     }
                 }) {
                     Icon(
-                        if (locationButtonRole) Icons.Rounded.LocationSearching else Icons.Rounded.LocationDisabled,
+                        if (uiState.locationButtonRole) Icons.Rounded.LocationSearching else Icons.Rounded.LocationDisabled,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onBackground
                     )

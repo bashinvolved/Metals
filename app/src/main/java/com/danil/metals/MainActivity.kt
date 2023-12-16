@@ -1,6 +1,5 @@
 package com.danil.metals
 
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -14,7 +13,6 @@ import com.danil.metals.data.apiKey
 import com.danil.metals.databinding.MainLayoutBinding
 import com.danil.metals.ui.MetalsApp
 import com.danil.metals.ui.MetalsViewModel
-import com.danil.metals.ui.screens.lastKnownPolyPoints
 import com.danil.metals.ui.theme.MetalsTheme
 import com.yandex.mapkit.MapKitFactory
 
@@ -42,13 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        try {
-            lastKnownPolyPoints = listOf()
-        } catch (_: UninitializedPropertyAccessException) { }
-
         setContent {
             viewModel = viewModel(factory = MetalsViewModel.Factory)
+
             val uiState by viewModel.uiState.collectAsState()
+            if (!uiState.listenersImplemented)
+                viewModel.deferredRecomposition()
             viewModel.setTheme(isSystemInDarkTheme())
 
             MetalsTheme(
@@ -65,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         MapKitFactory.getInstance().onStart()
         binding.mapview.onStart()
         try {
+            viewModel.setListenersImplemented(false)
             viewModel.listenMarkers()
             viewModel.listenVerification()
         } catch (_: UninitializedPropertyAccessException) { }
@@ -78,11 +76,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.verificationListener.remove()
         } catch (_: UninitializedPropertyAccessException) { }
         super.onStop()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        lastKnownPolyPoints = listOf()
     }
 
 }

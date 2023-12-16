@@ -67,6 +67,7 @@ import com.danil.metals.R
 import com.danil.metals.data.ExploredLocation
 import com.danil.metals.ui.MetalsUiState
 import com.danil.metals.ui.MetalsViewModel
+import com.danil.metals.ui.globalNav
 import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.geometry.LinearRing
 import com.yandex.mapkit.geometry.Point
@@ -160,7 +161,7 @@ fun MapScreen(
 
                         override fun onMapLongTap(map: Map, point: Point) {
                             if (viewModel.uiState.value.editMode) {
-                                navController.navigate(MetalsViewModel.Screens.EditScreen.name)
+                                globalNav.navigate(MetalsViewModel.Screens.EditScreen.name)
                             }
 
                         }

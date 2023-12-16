@@ -15,6 +15,7 @@ import com.danil.metals.MetalsApplication
 import com.danil.metals.R
 import com.danil.metals.data.ExploredLocation
 import com.danil.metals.data.MetalsRepository
+import com.danil.metals.ui.screens.lastKnownPolyPoints
 import com.google.firebase.firestore.ListenerRegistration
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.VisibleRegion
@@ -26,6 +27,7 @@ import com.yandex.mapkit.search.SearchOptions
 import com.yandex.mapkit.search.Session
 import com.yandex.mapkit.search.Session.SearchListener
 import com.yandex.runtime.Error
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -201,9 +203,9 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
         uiState.update { it.copy(isDark = uiState.value.isDark.not()) }
     }
 
-    fun setListenersImplemented() {
+    fun setListenersImplemented(value: Boolean = true) {
         uiState.update {
-            it.copy(listenersImplemented = true)
+            it.copy(listenersImplemented = value)
         }
     }
 
@@ -220,6 +222,13 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
 
     fun setCurrentScreen(screen: Screens) {
         uiState.update { it.copy(currentScreen = screen, previousScreen = uiState.value.currentScreen) }
+    }
+
+    fun deferredRecomposition() {
+        viewModelScope.launch {
+            delay(500)
+            lastKnownPolyPoints = listOf()
+        }
     }
 
     fun setLastExploredPoint(exploredLocation: ExploredLocation, point: Point) {

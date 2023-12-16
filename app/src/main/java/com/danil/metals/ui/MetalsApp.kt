@@ -46,6 +46,8 @@ import com.danil.metals.ui.screens.MapScreen
 import com.danil.metals.ui.screens.ResearchScreen
 import com.danil.metals.ui.screens.SettingsScreen
 
+lateinit var globalNav: NavHostController
+
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun MetalsApp(
@@ -54,6 +56,7 @@ fun MetalsApp(
     activity: AppCompatActivity,
     navController: NavHostController = rememberNavController()
 ) {
+    globalNav = navController
     Column(
         Modifier
             .fillMaxSize()

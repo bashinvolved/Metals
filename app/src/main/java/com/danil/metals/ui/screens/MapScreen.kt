@@ -189,7 +189,7 @@ fun MapScreen(
                             .map { it.latitude + it.longitude }
                         for (location in uiState.exploredLocations) {
                             val fusedContainment = location.elements.values.sortedBy { it[0].toDouble() }
-                            val fusedCoefficient = location.elements.values.sortedBy { it[1].toDouble() }
+                            val fusedCoefficient = location.elements.values.map { it[0] / it[1] } .sortedBy { it }
 
                             if (uiState.zcRangeStart.isNotEmpty())
                                 if (viewModel.calculateZc(location) < uiState.zcRangeStart.toDouble())
@@ -206,10 +206,10 @@ fun MapScreen(
                                     continue
 
                             if (uiState.coefficientRangeStart.isNotEmpty())
-                                if (fusedCoefficient.first()[1] < uiState.coefficientRangeStart.toDouble())
+                                if (fusedCoefficient.first() < uiState.coefficientRangeStart.toDouble())
                                     continue
                             if (uiState.coefficientRangeEnd.isNotEmpty())
-                                if (fusedCoefficient.last()[1] > uiState.coefficientRangeEnd.toDouble())
+                                if (fusedCoefficient.last() > uiState.coefficientRangeEnd.toDouble())
                                     continue
 
                             val polygon = Polygon(LinearRing(location.points), listOf())

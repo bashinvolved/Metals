@@ -251,7 +251,7 @@ fun EditScreen(
                     action = {
                         elements = replaceValueOfImmutableMap(
                             elements, elem.key,
-                            listOf(it.toDouble(), elem.value[1], elem.value[2])
+                            listOf(if (it.count {x -> x == '.'} == 2) it.split('.')[0].toDouble() else it.toDouble(), elem.value[1], elem.value[2])
                         )
                     },
                     text = R.string.containment,
@@ -263,7 +263,7 @@ fun EditScreen(
                     action = {
                         elements = replaceValueOfImmutableMap(
                             elements, elem.key,
-                            listOf(elem.value[0], it.toDouble(), elem.value[2])
+                            listOf(elem.value[0], if (it.count {x -> x == '.'} == 2) it.split('.')[0].toDouble() else it.toDouble(), elem.value[2])
                         )
                     },
                     text = R.string.mpc,
@@ -276,7 +276,7 @@ fun EditScreen(
                     action = {
                         elements = replaceValueOfImmutableMap(
                             elements, elem.key,
-                            listOf(elem.value[0], elem.value[1], it.toDouble())
+                            listOf(elem.value[0], elem.value[1], if (it.count {x -> x == '.'} == 2) it.split('.')[0].toDouble() else it.toDouble())
                         )
                     },
                     text = R.string.degree_of_pollution,

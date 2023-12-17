@@ -49,7 +49,10 @@ fun FilterScreen(
         Spacer(Modifier.height(dimensionResource(id = R.dimen.padding)))
 
         Row {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = {
+                navController.popBackStack()
+                viewModel.deferredRecomposition()
+            }) {
                 Icon(
                     Icons.Rounded.ArrowBack,
                     contentDescription = null,

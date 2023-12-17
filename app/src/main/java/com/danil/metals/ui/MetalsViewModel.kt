@@ -226,7 +226,11 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
 
     fun deferredRecomposition() {
         viewModelScope.launch {
-            delay(500)
+            delay(200)
+            lastKnownPolyPoints = listOf()
+        }
+        viewModelScope.launch {
+            delay(2000)
             lastKnownPolyPoints = listOf()
         }
     }

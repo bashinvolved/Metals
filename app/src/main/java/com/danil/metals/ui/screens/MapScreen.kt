@@ -84,9 +84,6 @@ import com.yandex.runtime.image.ImageProvider
 lateinit var cameraListener: CameraListener
 lateinit var inputListener: InputListener
 private lateinit var collection: MapObjectCollection
-lateinit var lastKnownPolyPoints: List<Double>
-var lastKnownRealLocation: List<Double> = listOf()
-var lastKnownSearchedPoint: Point = Point()
 lateinit var mapView: MapView
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -174,88 +171,75 @@ fun MapScreen(
                 mapView.mapWindow.map.addInputListener(inputListener)
 
                 try {
-                    if (uiState.exploredLocations.map { it.points }
-                            .reduce { result, it -> result + it }
-                            .map { it.latitude + it.longitude } != lastKnownPolyPoints ||
-                        uiState.editMode || uiState.currentScreen != uiState.previousScreen) {
-                        if (uiState.currentScreen != uiState.previousScreen)
-                            viewModel.setCurrentScreen(uiState.currentScreen)
-                        collection.clear()
-                        lastKnownRealLocation = listOf()
-                        lastKnownSearchedPoint = Point()
-                        collection = mapView.mapWindow.map.mapObjects.addCollection()
-                        lastKnownPolyPoints = uiState.exploredLocations.map { it.points }
-                            .reduce { result, it -> result + it }
-                            .map { it.latitude + it.longitude }
-                        for (location in uiState.exploredLocations) {
-                            val fusedContainment = location.elements.values.sortedBy { it[0].toDouble() }
-                            val fusedCoefficient = location.elements.values.map { it[0] / it[1] } .sortedBy { it }
+                    collection.clear()
+                    collection = mapView.mapWindow.map.mapObjects.addCollection()
+                    for (location in uiState.exploredLocations) {
+                        val fusedContainment =
+                            location.elements.values.sortedBy { it[0].toDouble() }
+                        val fusedCoefficient =
+                            location.elements.values.map { it[0] / it[1] }.sortedBy { it }
 
-                            if (uiState.zcRangeStart.isNotEmpty())
-                                if (viewModel.calculateZc(location) < uiState.zcRangeStart.toDouble())
-                                    continue
-                            if (uiState.zcRangeEnd.isNotEmpty())
-                                if (viewModel.calculateZc(location) > uiState.zcRangeEnd.toDouble())
-                                    continue
+                        if (uiState.zcRangeStart.isNotEmpty())
+                            if (viewModel.calculateZc(location) < uiState.zcRangeStart.toDouble())
+                                continue
+                        if (uiState.zcRangeEnd.isNotEmpty())
+                            if (viewModel.calculateZc(location) > uiState.zcRangeEnd.toDouble())
+                                continue
 
-                            if (uiState.containmentRangeStart.isNotEmpty())
-                                if (fusedContainment.first()[0] < uiState.containmentRangeStart.toDouble())
-                                    continue
-                            if (uiState.containmentRangeEnd.isNotEmpty())
-                                if (fusedContainment.last()[0] > uiState.containmentRangeEnd.toDouble())
-                                    continue
+                        if (uiState.containmentRangeStart.isNotEmpty())
+                            if (fusedContainment.first()[0] < uiState.containmentRangeStart.toDouble())
+                                continue
+                        if (uiState.containmentRangeEnd.isNotEmpty())
+                            if (fusedContainment.last()[0] > uiState.containmentRangeEnd.toDouble())
+                                continue
 
-                            if (uiState.coefficientRangeStart.isNotEmpty())
-                                if (fusedCoefficient.first() < uiState.coefficientRangeStart.toDouble())
-                                    continue
-                            if (uiState.coefficientRangeEnd.isNotEmpty())
-                                if (fusedCoefficient.last() > uiState.coefficientRangeEnd.toDouble())
-                                    continue
+                        if (uiState.coefficientRangeStart.isNotEmpty())
+                            if (fusedCoefficient.first() < uiState.coefficientRangeStart.toDouble())
+                                continue
+                        if (uiState.coefficientRangeEnd.isNotEmpty())
+                            if (fusedCoefficient.last() > uiState.coefficientRangeEnd.toDouble())
+                                continue
 
-                            val polygon = Polygon(LinearRing(location.points), listOf())
-                            collection.addPolygon(polygon).apply {
-                                strokeWidth = 1f
-                                strokeColor = ContextCompat.getColor(activity, R.color.black)
-                                fillColor =
-                                    ContextCompat.getColor(
-                                        activity,
-                                        viewModel.selectColor(location)
+                        val polygon = Polygon(LinearRing(location.points), listOf())
+                        collection.addPolygon(polygon).apply {
+                            strokeWidth = if (uiState.zoom < 11) 0f else if (uiState.zoom >= 11 && uiState.zoom < 14.5) 0.5f else 1.5f
+                            strokeColor = ContextCompat.getColor(activity, R.color.black)
+                            fillColor =
+                                ContextCompat.getColor(
+                                    activity,
+                                    viewModel.selectColor(location)
+                                )
+                            userData = location
+                            addTapListener { mapObject, point ->
+                                if (viewModel.uiState.value.editMode &&
+                                    viewModel.uiState.value.showingLocation == (mapObject.userData as ExploredLocation)
+                                ) {
+                                    viewModel.setLastExploredPoint(
+                                        viewModel.uiState.value.showingLocation,
+                                        point
                                     )
-                                userData = location
-                                addTapListener { mapObject, point ->
-                                    if (viewModel.uiState.value.editMode &&
-                                        viewModel.uiState.value.showingLocation == (mapObject.userData as ExploredLocation)) {
-                                        viewModel.setLastExploredPoint(
-                                            viewModel.uiState.value.showingLocation,
-                                            point
-                                        )
-                                    } else {
-                                        viewModel.setShowings(
-                                            mapObject.userData as ExploredLocation,
-                                            point
-                                        )
-                                    }
-                                    if (!viewModel.uiState.value.editMode) {
-                                        navController.navigate(MetalsViewModel.Screens.ResearchScreen.name)
-                                    }
-                                    true
+                                } else {
+                                    viewModel.setShowings(
+                                        mapObject.userData as ExploredLocation,
+                                        point
+                                    )
                                 }
+                                if (!viewModel.uiState.value.editMode) {
+                                    navController.navigate(MetalsViewModel.Screens.ResearchScreen.name)
+                                }
+                                true
                             }
                         }
-
                     }
+
+
                 } catch (e: Exception) {
-                    lastKnownPolyPoints =
-                        if (uiState.exploredLocations.isEmpty()) listOf() else uiState.exploredLocations.map { it.points }
-                            .reduce { result, it -> result + it }
-                            .map { it.latitude + it.longitude }
                     collection = mapView.mapWindow.map.mapObjects.addCollection()
                 }
 
 
 
-                if (uiState.realLocation != null && uiState.realLocation != lastKnownRealLocation) {
-                    lastKnownRealLocation = uiState.realLocation
+                if (uiState.realLocation != null) {
                     val imageProvider = ImageProvider.fromResource(activity, R.drawable.me)
                     collection.addPlacemark().apply {
                         geometry = Point(uiState.realLocation[0], uiState.realLocation[1])
@@ -271,12 +255,9 @@ fun MapScreen(
                             setIcon(imageProvider)
                         }
                     }
-                    lastKnownPolyPoints = listOf()
                 }
 
-                if (searchMode && uiState.searchedPoint != null &&
-                    lastKnownSearchedPoint != uiState.searchedPoint) {
-                    lastKnownSearchedPoint = uiState.searchedPoint
+                if (searchMode && uiState.searchedPoint != null) {
                     val imageProvider = ImageProvider.fromResource(activity, R.drawable.mmark)
                     collection.addPlacemark().apply {
                         geometry = uiState.searchedPoint
@@ -365,8 +346,6 @@ fun MapScreen(
                         } else {
                             viewModel.setRealLocation()
                             viewModel.setLocationButtonRole(true)
-                            lastKnownPolyPoints = listOf()
-                            lastKnownRealLocation = listOf()
                         }
                     } catch (e: Exception) {
                         viewModel.showWarning(Pair(R.string.uncathed_exception, R.string.ok)) {
@@ -415,8 +394,6 @@ fun MapScreen(
                 if (!uiState.editMode) {
                     IconButton(onClick = {
                         searchMode = !searchMode
-                        lastKnownPolyPoints = listOf()
-                        lastKnownSearchedPoint = Point()
                         viewModel.setSearchedPoint(null)
                     }) {
                         Icon(
@@ -438,7 +415,6 @@ fun MapScreen(
                 } else {
                     IconButton(onClick = {
                         viewModel.returnUiState()
-                        lastKnownPolyPoints = listOf()
                         viewModel.setMode(false)
                     }) {
                         Icon(
@@ -561,7 +537,6 @@ fun MapScreen(
                                             uiState.tilt
                                         )
                                         viewModel.setSearchedPoint(elem.second)
-                                        lastKnownPolyPoints = listOf()
                                     },
                                     modifier = Modifier
                                         .wrapContentSize(unbounded = true)

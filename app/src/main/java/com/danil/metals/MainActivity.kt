@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
             viewModel = viewModel(factory = MetalsViewModel.Factory)
 
             val uiState by viewModel.uiState.collectAsState()
-            if (!uiState.listenersImplemented)
-                viewModel.deferredRecomposition()
             viewModel.setTheme(isSystemInDarkTheme())
 
             MetalsTheme(

@@ -51,7 +51,6 @@ fun FilterScreen(
         Row {
             IconButton(onClick = {
                 navController.popBackStack()
-                viewModel.deferredRecomposition()
             }) {
                 Icon(
                     Icons.Rounded.ArrowBack,

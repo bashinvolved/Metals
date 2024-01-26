@@ -80,6 +80,7 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
 
     lateinit var verificationListener: ListenerRegistration
     fun listenVerification() {
+        uiState.update {it.copy(loading = true)}
         if (uiState.value.accountEmail != null && uiState.value.verified == null) {
             verificationListener =
                 metalsRepository.requestToGetDocRef("Users", uiState.value.accountEmail!!)
@@ -88,6 +89,7 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
                             uiState.update {
                                 it.copy(verified = snapshot.getBoolean("verified"))
                             }
+                            uiState.update {it.copy(loading = false)}
                         }
                     }
         }
@@ -292,6 +294,7 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
     }
 
     fun pushExplored() {
+        var updated = false
         for (elem in uiState.value.exploredLocations) {
             if (elem !in exploredLocationsBeforeEditing) {
                 val data = hashMapOf(
@@ -318,6 +321,13 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
                         metalsRepository.requestToCreateDocument("Markers", null, data)
                     }
                 }
+                updated = true
+
+            }
+        }
+        if (!updated) {
+            uiState.update {
+                it.copy(exploredLocations = exploredLocationsBeforeEditing)
             }
         }
     }

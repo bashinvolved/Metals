@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         try {
             viewModel.markersListener.remove()
             viewModel.verificationListener.remove()
+            viewModel.removeVerifiedStatus()
         } catch (_: UninitializedPropertyAccessException) { }
         super.onStop()
     }

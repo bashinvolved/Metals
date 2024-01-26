@@ -44,7 +44,7 @@
         получить права на редактирование карты, вам необходимо
         зарегистрироваться при помощи третьего меню и дождаться верификации
         от модерации\n\nБолее
-        подробное описание функций можно найти на нашей странице гитхаб\ngithub.com/austiniar/Metals\n\nИспользуя
+        подробное описание функций можно найти на нашей странице гитхаб\ngithub.com/thebenworks/Metals\n\nИспользуя
         приложение вы соглашаетесь с условиями использования Яндекс.Карт:\nyandex.ru/legal/maps_termsofuse
     </string>
     <string name="degree_of_pollution">Степень загрязнения</string>
@@ -61,5 +61,5 @@
     <string name="filter">Фильтры</string>
     <string name="range">Диапазон</string>
     <string name="not_applicable">Не применяется</string>
-    <string name="by">by @austiniar\n2023</string>
+    <string name="by">@thebenworks\n2024</string>
 </resources>

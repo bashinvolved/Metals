@@ -42,7 +42,7 @@
         consists of three menu. Main manipulations with the map are performed
         using the main page sidebar\n\nYou have to sign up in the third menu
         and wait for verification to get permission to edit the map\n\nMore information
-        about the functionality you can find on our github\ngithub.com/austiniar/Metals\n\nWhile using
+        about the functionality you can find on our github\ngithub.com/thebenworks/Metals\n\nWhile using
         this app you agree to Yandex.Maps terms of use\nyandex.ru/legal/maps_termsofuse
     </string>
     <string name="level_1">Normal</string>
@@ -60,5 +60,5 @@
     <string name="filter">Filters</string>
     <string name="range">Range</string>
     <string name="not_applicable">Not applicable</string>
-    <string name="by">by @austiniar\n2023</string>
+    <string name="by">@thebenworks\n2024</string>
 </resources>

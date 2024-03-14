@@ -80,8 +80,8 @@ class MetalsViewModel(val metalsRepository: MetalsRepository) : ViewModel() {
 
     lateinit var verificationListener: ListenerRegistration
     fun listenVerification() {
-        uiState.update { it.copy(loading = true) }
         if (uiState.value.accountEmail != null && uiState.value.verified == null) {
+            uiState.update { it.copy(loading = true) }
             verificationListener =
                 metalsRepository.requestToGetDocRef("Users", uiState.value.accountEmail!!)
                     .addSnapshotListener { snapshot, error ->
